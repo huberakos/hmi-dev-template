@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/mcp/main/schema/mcp-config.schema.json",
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest", "--browserUrl", "http://127.0.0.1:9222"],
+      "description": "Chrome DevTools — böngésző konzol hibák, network monitoring, DOM inspect"
+    }
+  }
+}

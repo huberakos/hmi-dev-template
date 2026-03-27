@@ -1,0 +1,43 @@
+# HMI Promptfoo Eval Template
+# Használat: cd tools-config/promptfoo && promptfoo eval
+# Dashboard: promptfoo view
+#
+# LiteLLM proxy-n keresztül (lokális Ollama modellek):
+#   OPENAI_BASE_URL=http://10.0.20.100:4000 promptfoo eval
+
+description: "HMI Projekt — Prompt Evaluation Template"
+
+# Providerek: lokális modellek LiteLLM-en keresztül
+providers:
+  # --- Lokális (Ollama via LiteLLM, $0) ---
+  - id: openai:chat:qwen3-14b
+    label: "Qwen3 14B (lokális, standard)"
+    config:
+      apiBaseUrl: "${LITELLM_URL:-http://10.0.20.100:4000}"
+  - id: openai:chat:qwen3-8b
+    label: "Qwen3 8B (lokális, gyors)"
+    config:
+      apiBaseUrl: "${LITELLM_URL:-http://10.0.20.100:4000}"
+
+  # --- Cloud (opcionális, kommentelve) ---
+  # - id: anthropic:messages:claude-haiku-4-5-20251001
+  #   label: "Haiku (gyors/olcsó)"
+
+# Promptok
+prompts:
+  - file://prompts/example.txt
+
+# Teszt esetek
+tests:
+  - vars:
+      task: "Példa feladat leírása"
+    assert:
+      - type: contains
+        value: "elvárt szó"
+      - type: llm-rubric
+        value: "A válasz releváns és magyar nyelvű"
+      - type: latency
+        threshold: 30000
+
+# Output
+outputPath: results/eval-results.json
