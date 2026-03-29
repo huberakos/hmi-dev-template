@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "defaultMode": "bypassPermissions"
+  },
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true,
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/skills/superpowers/hooks/session-start\"",
+            "timeout": 10000
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/safety-check.sh\"",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}
