@@ -20,6 +20,7 @@
 - Magyar kommentek, angol kód/változónevek
 - Komplex feladatnál: Plan mode először, majd implementáció
 - Frontend módosítás előtt: `/audit` és `/harden`
+- Böngésző tesztelés: gstack `/browse` + `/qa` (NEM chrome-devtools)
 
 ## Fontos Fájlok
 
@@ -28,10 +29,14 @@
 | `CLAUDE.md` | Ez a fájl |
 | `.mcp.json` | MCP szerver konfigok |
 
-## Elérhető MCP Szerverek
+## Böngésző Tesztelés
 
-- `chrome-devtools` — Böngésző debug (console, network, DOM)
-- [Projekt-specifikus MCP szerverek...]
+gstack `/browse` headless Chromium (~100ms per parancs):
+- `/qa` — automatikus tesztelés + javítás
+- `/browse` — kézi böngészés, screenshot, DOM inspect
+- `/design-review` — vizuális audit
+- `/benchmark` — Core Web Vitals
+- `/canary` — post-deploy monitoring
 
 ## Deploy
 

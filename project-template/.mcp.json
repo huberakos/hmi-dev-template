@@ -1,10 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/anthropics/mcp/main/schema/mcp-config.schema.json",
   "mcpServers": {
-    "chrome-devtools": {
-      "command": "npx",
-      "args": ["chrome-devtools-mcp@latest", "--browserUrl", "http://127.0.0.1:9222"],
-      "description": "Chrome DevTools — böngésző konzol hibák, network monitoring, DOM inspect"
-    }
+    "_comment_browse": "Böngésző tesztelés: gstack /browse skill-t használd (headless Chromium, ~100ms). Skill-ek: /qa, /browse, /design-review, /benchmark, /canary"
   }
 }

@@ -9,7 +9,7 @@ Fejlesztői környezet sablon — új gépek és projektek gyors beüzemeléséh
 | `project-template/` | Alap projekt fájlok (CLAUDE.md, .mcp.json, .gitignore, .vscode) |
 | `user-config/agents/` | 9 Claude Code agent persona (~/.claude/agents/) |
 | `user-config/commands/` | 5 Impeccable Design skill + 7 referencia (~/.claude/commands/) |
-| `scripts/` | Chrome DevTools debug indító (chrome-debug.bat) |
+| `scripts/` | Dev session scriptek (start-dev.bat, start-claude.sh) |
 | `tools-config/promptfoo/` | promptfoo eval sablon (LiteLLM lokális modellekkel) |
 | `setup-machine.ps1` | Automatikus telepítő script |
 
@@ -36,10 +36,10 @@ Ez telepíti:
 
 Ez átmásolja a projekt template-et:
 - `CLAUDE.md` — szerkeszd a projekt specifikus adatokkal
-- `.mcp.json` — Chrome DevTools MCP (bővítsd projekt MCP-kkel)
+- `.mcp.json` — MCP szerver konfigok (bővítsd projekt MCP-kkel)
 - `.gitignore` — standard kizárások
 - `.vscode/extensions.json` — ajánlott VS Code bővítmények
-- `scripts/chrome-debug.bat` — Chrome debug mód
+- `scripts/start-dev.bat` — VS Code + Claude Code dev session indítás
 
 ### 3. Csak config (tool-ok nélkül)
 
@@ -73,14 +73,18 @@ Aktiválás Claude Code-ban: `"Használd a Backend Architect agentet"`
 | `/frontend-design` | UI implementáció design elvekkel |
 | `/teach-impeccable` | Első futtatás: projekt design kontextus beállítás |
 
-## Chrome DevTools Debug
+## Böngésző Tesztelés (gstack /browse)
 
-```cmd
-scripts\chrome-debug.bat                          # localhost:8000
-scripts\chrome-debug.bat http://192.168.3.110:8080  # ERPNext szerver
+A `chrome-devtools` MCP-t a **gstack `/browse`** váltotta ki — gyorsabb (~100ms vs 3-5s) és több funkció:
+
+```bash
+# Claude Code session-ben:
+/qa                    # Automatikus QA tesztelés + javítás
+/browse                # Headless Chromium navigáció
+/design-review         # Vizuális audit
+/benchmark             # Core Web Vitals
+/canary                # Post-deploy monitoring
 ```
-
-A Chrome debug módban indul (CDP 9222), a `chrome-devtools` MCP automatikusan csatlakozik.
 
 ## Promptfoo
 
@@ -91,13 +95,13 @@ LITELLM_URL=http://10.0.20.100:4000 promptfoo eval
 promptfoo view   # Dashboard
 ```
 
-## Firewall (Chrome DevTools)
+## Dev Session Indítás
 
-A `setup-machine.ps1` ellenőrzi a tűzfal szabályt. Ha hiányzik, admin PowerShell-ben:
-
-```powershell
-New-NetFirewallRule -DisplayName "Block CDP External" -Direction In -LocalPort 9222 -Protocol TCP -RemoteAddress Any -Action Block
+```cmd
+scripts\start-dev.bat
 ```
+
+VS Code megnyílik, Claude Code automatikusan elindul az integrált terminálban + remote control a háttérben.
 
 ## Gépek
 
